@@ -29,7 +29,7 @@
 	// "mounts": [
 	// 	"source=${localEnv:workspaceFolderBasename}history,target=/commandhistory,type=volume"
 	// ],
-	"remoteUser": "vscode",
+	"remoteUser": "root",
 	"initializeCommand": "./.devcontainer/init.sh",
 	"postCreateCommand": "/usr/local/bin/init_post_create.sh",
 	"postAttachCommand": [
