@@ -1,0 +1,30 @@
+services:
+  dev:
+    image: ${PROJECT_NAME}_dev
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile.dev
+      target: ${TARGET_STAGE}
+      args:
+        USERNAME: ${CONTAINER_USER:-vscode}
+        INSTALL_TERRAFORM: ${INSTALL_TERRAFORM:-false}
+        INSTALL_GCLOUD: ${INSTALL_GCLOUD:-false}
+        INSTALL_HADOLINT: ${INSTALL_HADOLINT:-false}
+        INSTALL_DOCKER: ${INSTALL_DOCKER:-false}
+
+    volumes:
+      - ..:/workspace:cached
+      - ${HOME}/.config/gcloud:${CONTAINER_HOME:-/root}/.config/gcloud
+      - ${HOME}/.gitconfig:${CONTAINER_HOME:-/root}/.gitconfig
+      - ${HOME}/.ssh:${CONTAINER_HOME:-/root}/.ssh
+      - /run/user/1000/docker.sock:/var/run/docker.sock
+      - ${HOME}/.1password/agent.sock:${CONTAINER_HOME:-/root}/.1password/agent.sock
+      - ${HOME}/.config/1Password/settings:${CONTAINER_HOME:-/root}/.config/1Password/settings
+      # - /run/user/1000/op-daemon.sock:${CONTAINER_HOME:-/root}/.config/op/op-daemon.sock
+
+    environment:
+      SSH_AUTH_SOCK: ${CONTAINER_HOME:-/root}/.1password/agent.sock
+      PROJECT_NAME: ${PROJECT_NAME}
+
+    command: sleep infinity
+    container_name: ${PROJECT_NAME}_dev_container

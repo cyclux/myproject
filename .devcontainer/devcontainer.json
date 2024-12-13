@@ -1,0 +1,39 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-existing-dockerfile
+{
+	"name": "Existing Dockerfile",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "dev",
+	// "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+	"workspaceFolder": "/workspace",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.defaultProfile.linux": "bash"
+			},
+			"extensions": [
+				"ms-azuretools.vscode-docker",
+				"tamasfe.even-better-toml",
+				"GitHub.copilot",
+				"exiasr.hadolint",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"ms-python.python",
+				"charliermarsh.ruff",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"Gruntfuggly.todo-tree"
+			]
+		}
+	},
+	// "mounts": [
+	// 	"source=${localEnv:workspaceFolderBasename}history,target=/commandhistory,type=volume"
+	// ],
+	"remoteUser": "vscode",
+	"initializeCommand": "./.devcontainer/init.sh",
+	"postCreateCommand": "/usr/local/bin/init_post_create.sh",
+	"postAttachCommand": [
+		"/usr/local/bin/entrypoint.sh",
+		"/workspace/.devcontainer/init_post_attach.sh"
+	]
+}
